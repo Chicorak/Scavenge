@@ -1,1 +1,2 @@
-{\rtf1}
+#pragma once
+#include <raylib.h>

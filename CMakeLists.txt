@@ -30,6 +30,6 @@ endif()
 
 # This is the main part:
 
-add_executable(${PROJECT_NAME} src/main.cpp)
+add_executable(${PROJECT_NAME} src/main.cpp src/GameObject.cpp include/GameObject.hpp src/player.cpp include/player.hpp)
 #set(raylib_VERBOSE 1)
 target_link_libraries(${PROJECT_NAME} raylib)
