@@ -5,22 +5,40 @@
 #include "../include/GameObject.hpp"
 
 
-int GameObject::setX(int x) {
+void GameObject::setX(int x) {
     posX = x;
 }
 
-int GameObject::setY(int y) {
+void GameObject::setY(int y) {
     posY = y;
 }
 
-int GameObject::setHeight(int h) {
+void GameObject::setHeight(int h) {
     height = h;
 }
 
-int GameObject::setWidth(int w) {
+void GameObject::setWidth(int w) {
     width = w;
 }
 
-int GameObject::setRadius(int r) {
+void GameObject::setRadius(int r) {
     radius = r;
+}
+
+void GameObject::setPosition(int x, int y) {
+    GameObject::setX(x);
+    GameObject::setY(y);
+}
+
+int GameObject::getPositionX() const {
+    return GameObject::posX;
+}
+
+int GameObject::getPositionY() const {
+    return GameObject::posY;
+}
+
+void GameObject::setBox(int w, int h) {
+    setWidth(w);
+    setHeight(h);
 }

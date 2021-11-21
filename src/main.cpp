@@ -1,6 +1,7 @@
-#include "../include/main.hpp"
+
 #include "../include/player.hpp"
 #include "raylib.h"
+#include <math.h>
 
 //------------------------------------------------------------------------------------------
 // Types and Structures Definition
@@ -10,7 +11,7 @@ typedef enum GameScreen { LOGO = 0, TITLE, GAMEPLAY, ENDING } GameScreen;
 //------------------------------------------------------------------------------------------
 // Main entry point
 //------------------------------------------------------------------------------------------
-int main(void)
+int main()
 {
     // Initialization
     //--------------------------------------------------------------------------------------
@@ -28,9 +29,24 @@ int main(void)
 
     RenderTexture2D target = LoadRenderTexture(virtualScreenWidth, virtualScreenHeight);
 
+    Texture2D TitleScreen = LoadTexture("../assets/gfx/TitleScreen.png");
+    /* MomRat Textures*/
+    Texture2D MomRatIdle = LoadTexture("../assets/gfx/ThyRat/MomRatIdle.png");
+    Texture2D MomRatLeftstep = LoadTexture("../assets/gfx/ThyRat/MomRatLeftstep.png");
+    Texture2D MomRatRightstep = LoadTexture("../assets/gfx/ThyRat/MomRatRightstep.png");
+    Texture2D MomRatReach = LoadTexture("../assets/gfx/ThyRat/MomRatReach.png");
+    Texture2D MomRatThrow = LoadTexture("../assets/gfx/ThyRat/MomRatThrow.png");
+    // ------
+
     // TODO: Initialize all required variables and load all required data here!
     /* Variables */
-    player mainPlayer;
+    player mainPlayer{};
+
+    mainPlayer.setRadius(50);
+    mainPlayer.setPosition(50, 50);
+    mainPlayer.SetTexture(MomRatIdle);
+    mainPlayer.SetDir(0);
+    mainPlayer.SetSpeed(2);
 
     int framesCounter = 0;          // Useful to count frames
 
@@ -46,12 +62,10 @@ int main(void)
         {
             case LOGO:
             {
-                // TODO: Update LOGO screen variables here!
-
                 framesCounter++;    // Count frames
 
-                // Wait for 2 seconds (120 frames) before jumping to TITLE screen
-                if (framesCounter > 120)
+                // Wait for 4 seconds (240 frames) before jumping to TITLE screen
+                if (framesCounter > 240)
                 {
                     currentScreen = TITLE;
                 }
@@ -69,7 +83,8 @@ int main(void)
             case GAMEPLAY:
             {
                 // TODO: Update GAMEPLAY screen variables here!
-
+                mainPlayer.GetInput();
+                mainPlayer.SetDir(atan2(GetMouseY(), GetMouseX()) * DEG2RAD);
 
             } break;
             case ENDING:
@@ -90,32 +105,25 @@ int main(void)
         //----------------------------------------------------------------------------------
         BeginDrawing();
 
-        ClearBackground(RAYWHITE);
+        ClearBackground(DARKGRAY);
 
         switch(currentScreen)
         {
             case LOGO:
             {
-                // TODO: Draw LOGO screen here!
-                DrawText("LOGO SCREEN", 20, 20, 40, LIGHTGRAY);
-                DrawText("WAIT for 2 SECONDS...", screenWidth/2 - 100, screenHeight/2, 20, GRAY);
+                DrawTexture(TitleScreen, 0, 0,  WHITE);
 
             } break;
             case TITLE:
             {
                 // TODO: Draw TITLE screen here!
-                DrawRectangle(0, 0, screenWidth, screenHeight, GREEN);
                 DrawText("TITLE SCREEN", 20, 20, 40, DARKGREEN);
-                DrawText("PRESS ENTER or TAP to JUMP to GAMEPLAY SCREEN", screenWidth/2 - 100, screenHeight/2, 20, DARKGREEN);
+                DrawText("PRESS ENTER or TAP to JUMP to GAMEPLAY SCREEN", screenWidth/2 - 150, screenHeight/2, 20, DARKGREEN);
 
             } break;
             case GAMEPLAY:
             {
-                // TODO: Draw GAMEPLAY screen here!
-                DrawRectangle(0, 0, screenWidth, screenHeight, PURPLE);
-                DrawText("GAMEPLAY SCREEN", 20, 20, 40, MAROON);
-                DrawText("PRESS ENTER or TAP to JUMP to ENDING SCREEN", screenWidth/2 - 100, screenHeight/2, 20, MAROON);
-
+                DrawTextureEx(mainPlayer.GetTexture(), Vector2{(float)mainPlayer.getPositionX(), (float)mainPlayer.getPositionY()}, (int)mainPlayer.GetDir(), 1.0f, WHITE);
             } break;
             case ENDING:
             {

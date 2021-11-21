@@ -11,9 +11,16 @@
 
 class player: public GameObject {
 protected:
-    int ammo, speed, dir;
+    int ammo, dir, speed;
+    Texture2D CurrentTexture;
 public:
     void GetInput();
+    void SetAmmo(int Ammo);
+    void SetDir(int Dir);
+    void SetTexture(Texture2D tex);
+    void SetSpeed(int Speed);
+    int GetDir();
+    Texture2D GetTexture();
 };
 
 

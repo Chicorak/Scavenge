@@ -14,7 +14,11 @@ public:
     void setY(int y);
     void setHeight(int h);
     void setWidth(int w);
-    int setRadius(int r);
+    void setBox(int w, int h);
+    void setRadius(int r);
+    void setPosition( int x, int y);
+    int getPositionX() const;
+    int getPositionY() const;
 };
 
 
