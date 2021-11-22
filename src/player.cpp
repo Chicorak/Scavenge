@@ -3,14 +3,17 @@
 //
 
 #include "../include/player.hpp"
+
 #include <raylib.h>
 
 
-void player::GetInput() {
-    if (IsKeyDown(KEY_RIGHT)|| IsKeyDown(KEY_D)) player::posX += player::speed;
-    if (IsKeyDown(KEY_LEFT)|| IsKeyDown(KEY_A)) player::posX -= player::speed;
-    if (IsKeyDown(KEY_UP)|| IsKeyDown(KEY_W)) player::posY -= player::speed;
-    if (IsKeyDown(KEY_DOWN) || IsKeyDown(KEY_S)) player::posY += player::speed;
+bool player::GetInput() {
+    bool on = false;
+    if (IsKeyDown(KEY_RIGHT)|| IsKeyDown(KEY_D)){ player::posX += player::speed; on = true; }
+    if (IsKeyDown(KEY_LEFT)|| IsKeyDown(KEY_A)){ player::posX -= player::speed; on = true; }
+    if (IsKeyDown(KEY_UP)|| IsKeyDown(KEY_W)){ player::posY -= player::speed; on = true; }
+    if (IsKeyDown(KEY_DOWN) || IsKeyDown(KEY_S)){ player::posY += player::speed; on = true; }
+    return on;
 }
 void player::SetAmmo(int Ammo) {
     player::ammo = Ammo;
@@ -34,6 +37,10 @@ void player::SetDir(int Dir) {
 
 void player::SetSpeed(int Speed) {
     player::speed = Speed;
+}
+
+int player::GetAmmo() const {
+    return player::ammo;
 }
 
 

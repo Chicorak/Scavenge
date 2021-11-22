@@ -14,12 +14,13 @@ protected:
     int ammo, dir, speed;
     Texture2D CurrentTexture;
 public:
-    void GetInput();
+    bool GetInput();
     void SetAmmo(int Ammo);
     void SetDir(int Dir);
     void SetTexture(Texture2D tex);
     void SetSpeed(int Speed);
     int GetDir();
+    int GetAmmo() const;
     Texture2D GetTexture();
 };
 
